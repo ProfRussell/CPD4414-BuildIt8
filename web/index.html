@@ -19,8 +19,25 @@ limitations under the License.
         <title>CPD4414-BuildIt8</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script>
+            var wsUri = "ws://localhost:8080/CPD4414-BuildIt8/sample";
+            $(document).ready(function() {
+               var websocket = new WebSocket(wsUri);
+               websocket.onmessage = function(evt) {
+                 $("#chatwindow").append('<p>' + evt.data + '</p>');
+               };
+
+               $("#send").click(function() {
+                   websocket.send($('#input').val());
+               });
+            });
+        </script>
     </head>
     <body>
-        <div>This application hosts some web services. For a full description, see the source code.</div>
+        <div>This application hosts some web services. For a full description of those, see the source code.</div>
+        <div>In addition, this application hosts a bit of WebSocket magic in the form of a simple chat app.</div>
+        <div id="chatwindow"></div>
+        <div><input id="input" /><button id="send">Send</button></div>
     </body>
 </html>
